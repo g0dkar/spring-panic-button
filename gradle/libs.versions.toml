@@ -5,7 +5,7 @@ springDepMan = "1.1.7"
 mockito-kotlin = "6.0.0"
 restassured = "5.5.6"
 kotest = "6.0.3"
-postgresql = "42.7.7"
+postgresql = "42.7.8"
 testcontainers = "1.21.3"
 faker = "1.16.0"
 jetbrain-annotations = "26.0.2-1"
@@ -24,11 +24,11 @@ sekret = { id = "net.afanasev.sekret", version.ref = "sekret" }
 flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }
 
 [libraries]
-jetbrain-annotation = { module = "org.jetbrains:annotations", version.ref = "jetbrain-annotations"}
+jetbrain-annotation = { module = "org.jetbrains:annotations", version.ref = "jetbrain-annotations" }
 jacksonKotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jacksonKotlin" }
 micrometer-statsd = { module = "io.micrometer:micrometer-registry-statsd", version.ref = "micrometer" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
-flyway = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+flyway-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
 
 ## Test
 spring-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }

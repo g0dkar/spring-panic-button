@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath(libs.flyway.postgresql)
+    }
+}
+
 plugins {
     // Dev Plugins
     idea
@@ -56,7 +66,6 @@ dependencies {
 
     /* Persistence */
     runtimeOnly(libs.postgresql)
-    implementation(libs.flyway)
     implementation(libs.spring.starter.jpa)
 
     /* Security */
@@ -164,7 +173,7 @@ springBoot {
 /* Database         */
 /* **************** */
 val jdbcDriver = properties.getOrDefault("jdbc.driver", "org.postgresql.Driver")?.toString()
-val jdbcUrl = properties.getOrDefault("jdbc.url", "jdbc:postgresql://localhost:5432/spb")?.toString()
+val jdbcUrl = properties.getOrDefault("jdbc.url", "jdbc:postgresql://localhost:15432/spb")?.toString()
 val jdbcUser = properties.getOrDefault("jdbc.username", "spb")?.toString()
 val jdbcPassword = properties.getOrDefault("jdbc.password", "spb.123")?.toString()
 

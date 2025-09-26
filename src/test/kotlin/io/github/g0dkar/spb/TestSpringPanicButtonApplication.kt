@@ -5,5 +5,5 @@ import org.springframework.boot.with
 
 
 fun main(args: Array<String>) {
-	fromApplication<SpringPanicButtonApplication>().with(TestcontainersConfiguration::class).run(*args)
+	fromApplication<Launcher>().with(TestcontainersConfiguration::class).run(*args)
 }

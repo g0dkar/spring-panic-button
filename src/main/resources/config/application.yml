@@ -1,7 +1,12 @@
 spring:
   application:
     name: spring-panic-button
+  datasource:
+    url: jdbc:postgresql://localhost:15432/spb
+    username: "spb"
+    password: "spb.123"
   jpa:
+    open-in-view: false
     database: postgresql
     hibernate:
       ddl-auto: none

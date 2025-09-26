@@ -19,6 +19,7 @@ plugins {
     // Kotlin
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.kotlin.jpa)
 
     // Tests and Quality
     jacoco
@@ -30,7 +31,7 @@ plugins {
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(25)
+        languageVersion = JavaLanguageVersion.of(24)
 	}
 }
 
@@ -54,10 +55,7 @@ dependencies {
     implementation(libs.jetbrain.annotation)
 
     /* Web */
-    implementation(libs.spring.starter.web) {
-        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
-    }
-    implementation(libs.spring.starter.undertow)
+    implementation(libs.spring.starter.web)
 
     /* Observability */
     runtimeOnly(libs.micrometer.statsd)
@@ -148,7 +146,7 @@ tasks {
 /* **************** */
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+        mavenBom(libs.spring.cloud.bom.get().toString())
     }
 }
 

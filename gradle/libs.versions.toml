@@ -18,6 +18,7 @@ flyway = "11.7.2"
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring" }
 spring-depMan = { id = "io.spring.dependency-management", version.ref = "springDepMan" }
 sekret = { id = "net.afanasev.sekret", version.ref = "sekret" }
@@ -41,7 +42,6 @@ faker = { module = "io.github.serpro69:kotlin-faker", version.ref = "faker" }
 
 ## Managed by Spring
 spring-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
-spring-starter-undertow = { module = "org.springframework.boot:spring-boot-starter-undertow" }
 spring-starter-logging = { module = "org.springframework.boot:spring-boot-starter-logging" }
 spring-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
@@ -53,4 +53,3 @@ spring-starter-jpa = { module = "org.springframework.boot:spring-boot-starter-da
 spring-cloud-config-server = { module = "org.springframework.cloud:spring-cloud-config-server" }
 spring-cloud-config-client = { module = "org.springframework.cloud:spring-cloud-starter-config" }
 spring-cloud-bom = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloud" }
-

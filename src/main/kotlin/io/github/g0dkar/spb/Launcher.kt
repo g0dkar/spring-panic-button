@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class SpringPanicButtonApplication
+class Launcher
 
 fun main(args: Array<String>) {
-	runApplication<SpringPanicButtonApplication>(*args)
+    runApplication<Launcher>(*args)
 }

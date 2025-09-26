@@ -1,0 +1,56 @@
+[versions]
+kotlin = "2.2.10"
+spring = "3.5.6"
+springDepMan = "1.1.7"
+mockito-kotlin = "6.0.0"
+restassured = "5.5.6"
+kotest = "6.0.3"
+postgresql = "42.7.7"
+testcontainers = "1.21.3"
+faker = "1.16.0"
+jetbrain-annotations = "26.0.2-1"
+sekret = "2.1.0"
+jacksonKotlin = "2.20.0"
+micrometer = "1.15.4"
+springCloud = "2025.0.0"
+flyway = "11.7.2"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring" }
+spring-depMan = { id = "io.spring.dependency-management", version.ref = "springDepMan" }
+sekret = { id = "net.afanasev.sekret", version.ref = "sekret" }
+flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }
+
+[libraries]
+jetbrain-annotation = { module = "org.jetbrains:annotations", version.ref = "jetbrain-annotations"}
+jacksonKotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jacksonKotlin" }
+micrometer-statsd = { module = "io.micrometer:micrometer-registry-statsd", version.ref = "micrometer" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+flyway = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+
+## Test
+spring-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+restassured = { module = "io.rest-assured:rest-assured", version.ref = "restassured" }
+kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+testcontainers-base = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
+testcontainers-postgresql = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
+faker = { module = "io.github.serpro69:kotlin-faker", version.ref = "faker" }
+
+## Managed by Spring
+spring-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-starter-undertow = { module = "org.springframework.boot:spring-boot-starter-undertow" }
+spring-starter-logging = { module = "org.springframework.boot:spring-boot-starter-logging" }
+spring-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-starter-oauth2-client = { module = "org.springframework.boot:spring-boot-starter-oauth2-client" }
+spring-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
+spring-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+spring-confProcessor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
+spring-starter-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-cloud-config-server = { module = "org.springframework.cloud:spring-cloud-config-server" }
+spring-cloud-config-client = { module = "org.springframework.cloud:spring-cloud-starter-config" }
+spring-cloud-bom = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloud" }
+

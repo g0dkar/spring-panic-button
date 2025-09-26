@@ -1,0 +1,15 @@
+services:
+  spb_db:
+    image: docker.io/postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: spb
+      POSTGRES_PASSWORD: spb.123
+      POSTGRES_DB: spb
+    ports:
+      - "15432:5432"
+    volumes:
+      - "spb_db_volume:/var/lib/postgresql/data"
+
+volumes:
+  spb_db_volume:

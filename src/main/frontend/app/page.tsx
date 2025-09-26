@@ -1,9 +1,22 @@
-import Image from "next/image";
+"use client"
+
+import Image from "next/image"
+import {cn} from "@/lib/utils"
+import React from "react"
+
+function Bold({className, children}: React.HTMLAttributes<HTMLSpanElement>) {
+    return (
+        <span className={cn("font-bold tracking-tight text-accent-foreground", className)}>{children}</span>
+    )
+}
 
 export default function Home() {
     return (
         <div
             className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+
+            Top <Bold>Kek</Bold> Mate
+
             <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
                 <Image
                     className="dark:invert"
@@ -101,5 +114,5 @@ export default function Home() {
                 </a>
             </footer>
         </div>
-    );
+    )
 }

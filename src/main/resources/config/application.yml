@@ -1,8 +1,30 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+    min-response-size: 32
+  http2:
+    enabled: true
+  error:
+    include-exception: true
+    whitelabel:
+      enabled: false
+  servlet:
+    jsp:
+      registered: false
+
 spring:
   application:
-    name: spring-panic-button
+    name: "spring-panic-button"
+  jackson:
+    default-property-inclusion: non_absent
+    time-zone: "UTC" # Always send and receive UTC dates by default
+    property-naming-strategy: SNAKE_CASE
+  mvc:
+    format:
+      date: iso # Always send and receive UTC dates by default (URL params)
   datasource:
-    url: jdbc:postgresql://localhost:15432/spb
+    url: "jdbc:postgresql://localhost:15432/spb"
     username: "spb"
     password: "spb.123"
   jpa:

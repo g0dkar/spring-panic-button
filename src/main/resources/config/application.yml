@@ -42,4 +42,4 @@ spring:
 
 panic-button:
   security:
-    enabled: false
+    enabled: true

@@ -39,3 +39,7 @@ spring:
       mode: never
   flyway:
     enabled: false
+
+panic-button:
+  security:
+    enabled: false

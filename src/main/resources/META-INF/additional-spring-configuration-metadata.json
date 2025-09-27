@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "panic-button.security.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to secure the API with Spring Security or not. Does not apply to the [GET /api/v1/panic] endpoint."
+  }
+] }

@@ -51,7 +51,7 @@ services:
       - "18080:8080"
       - "18443:8443"
     volumes:
-      - "./docker-compose/keycloak-realm.json:/opt/keycloak/data/import/keycloak-realm.json"
+      - "./.docker-compose/keycloak-realm.json:/opt/keycloak/data/import/sping-panic-button.json"
     depends_on:
       keycloak_db:
         condition: service_healthy

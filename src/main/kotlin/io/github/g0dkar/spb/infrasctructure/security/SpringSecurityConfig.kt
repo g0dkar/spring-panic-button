@@ -3,7 +3,7 @@ package io.github.g0dkar.spb.infrasctructure.security
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
+import org.springframework.http.HttpMethod.GET
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.SecurityFilterChain
 
@@ -14,6 +14,7 @@ class SpringSecurityConfig {
     fun disabledSecurityConfiguration(http: HttpSecurity): SecurityFilterChain =
         http
             .csrf { csrf -> csrf.disable() }
+            .authorizeHttpRequests { auth -> auth.anyRequest().permitAll() }
             .build()
 
     @Bean
@@ -21,9 +22,9 @@ class SpringSecurityConfig {
     fun enabledSecurityConfiguration(http: HttpSecurity): SecurityFilterChain =
         http
             .csrf { csrf -> csrf.disable() }
-            .authorizeHttpRequests {
-                it.requestMatchers(HttpMethod.GET, "/api/v1/panic").permitAll()
-                it.anyRequest().authenticated()
+            .authorizeHttpRequests { auth ->
+                auth.requestMatchers(GET, "/api/v1/panic").permitAll()
+                auth.anyRequest().authenticated()
             }
             .build()
 }

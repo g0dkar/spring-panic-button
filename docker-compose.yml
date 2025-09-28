@@ -10,6 +10,53 @@ services:
       - "15432:5432"
     volumes:
       - "spb_db_volume:/var/lib/postgresql/data"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "spb" ]
+      interval: 10s
+      timeout: 20s
+      retries: 5
+
+  keycloak_db:
+    image: docker.io/postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak.123
+      POSTGRES_DB: keycloak
+    ports:
+      - "25432:5432"
+    volumes:
+      - "keycloak_db_volume:/var/lib/postgresql/data"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "keycloak" ]
+      interval: 10s
+      timeout: 20s
+      retries: 5
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.3
+    environment:
+      KC_HOSTNAME: localhost
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak_db:5432/keycloak
+      KC_DB_SCHEMA: public
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak.123
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HEALTH_ENABLED: true
+    command:
+      #      [ "start-dev", "--import-realm" ]
+      [ "start-dev" ]
+    ports:
+      - "18080:8080"
+      - "18443:8443"
+    #    volumes:
+    #      - "./src/test/resources/docker/keycloak-realm.json:/opt/keycloak/data/import/keycloak-realm.json"
+    depends_on:
+      keycloak_db:
+        condition: service_healthy
 
 volumes:
   spb_db_volume:
+  keycloak_db_volume:

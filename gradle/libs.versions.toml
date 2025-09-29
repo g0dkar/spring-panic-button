@@ -12,7 +12,6 @@ jetbrain-annotations = "26.0.2-1"
 sekret = "2.1.0"
 jacksonKotlin = "2.20.0"
 micrometer = "1.15.4"
-springCloud = "2025.0.0"
 flyway = "11.7.2"
 uuidv7 = "1.0.1"
 
@@ -52,6 +51,3 @@ spring-testcontainers = { module = "org.springframework.boot:spring-boot-testcon
 spring-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 spring-confProcessor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
 spring-starter-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
-spring-cloud-config-server = { module = "org.springframework.cloud:spring-cloud-config-server" }
-spring-cloud-config-client = { module = "org.springframework.cloud:spring-cloud-starter-config" }
-spring-cloud-bom = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloud" }

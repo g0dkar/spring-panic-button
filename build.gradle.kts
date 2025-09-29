@@ -72,8 +72,6 @@ dependencies {
     /* Other */
     implementation(libs.uuidv7)
     implementation(libs.spring.starter.validation)
-    implementation(libs.spring.cloud.config.server)
-    implementation(libs.spring.cloud.config.client)
 
     /* Spring Dev Tools */
     developmentOnly(libs.spring.devtools)
@@ -145,12 +143,6 @@ tasks {
 /* **************** */
 /* Misc Config      */
 /* **************** */
-dependencyManagement {
-    imports {
-        mavenBom(libs.spring.cloud.bom.get().toString())
-    }
-}
-
 kotlin {
     compilerOptions {
         freeCompilerArgs.addAll("-Xjsr305=strict")

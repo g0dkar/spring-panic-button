@@ -14,6 +14,7 @@ jacksonKotlin = "2.20.0"
 micrometer = "1.15.4"
 springCloud = "2025.0.0"
 flyway = "11.7.2"
+uuidv7 = "1.0.1"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -30,6 +31,7 @@ jacksonKotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin",
 micrometer-statsd = { module = "io.micrometer:micrometer-registry-statsd", version.ref = "micrometer" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 flyway-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+uuidv7 = { module = "io.github.robsonkades:uuidv7", version.ref = "uuidv7" }
 
 ## Test
 spring-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }

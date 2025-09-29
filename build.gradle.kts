@@ -30,19 +30,19 @@ plugins {
 }
 
 java {
-	toolchain {
+    toolchain {
         languageVersion = JavaLanguageVersion.of(24)
-	}
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom(configurations.annotationProcessor.get())
-	}
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
     mavenLocal()
 }
 
@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.spring.starter.oauth2.resourceServer)
 
     /* Other */
+    implementation(libs.uuidv7)
     implementation(libs.spring.starter.validation)
     implementation(libs.spring.cloud.config.server)
     implementation(libs.spring.cloud.config.client)

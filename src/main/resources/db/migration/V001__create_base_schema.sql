@@ -2,11 +2,12 @@ DROP TABLE IF EXISTS panic_status CASCADE;
 
 CREATE TABLE panic_status
 (
-    id          UUID        NOT NULL,
-    status      VARCHAR(64) NOT NULL,
-    metadata    JSONB,
-    timestamp   TIMESTAMP WITH TIME ZONE DEFAULT NULL,
-    declared_by VARCHAR(64) NOT NULL,
+    id             UUID        NOT NULL,
+    status         VARCHAR(64) NOT NULL,
+    metadata       JSONB,
+    timestamp      TIMESTAMP WITH TIME ZONE DEFAULT NULL,
+    declared_by    VARCHAR(64) NOT NULL,
+    declared_by_id VARCHAR(64),
     CONSTRAINT PK_panic_status PRIMARY KEY (id)
 );
 

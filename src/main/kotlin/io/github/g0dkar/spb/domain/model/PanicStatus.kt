@@ -34,6 +34,9 @@ data class PanicStatus(
 
     @Column(name = "declared_by")
     val declaredBy: String,
+
+    @Column(name = "declared_by_id", nullable = true)
+    val declaredById: String?,
 ) {
     companion object {
         const val METADATA_HTTP_STATUS = "http_status"

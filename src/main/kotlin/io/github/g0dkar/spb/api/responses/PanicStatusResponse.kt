@@ -9,6 +9,7 @@ data class PanicStatusResponse(
     val metadata: PanicMetadata?,
     val since: OffsetDateTime,
     val declaredBy: String,
+    val declaredById: String?,
 )
 
 fun PanicStatus.toResponse(): PanicStatusResponse =
@@ -17,4 +18,5 @@ fun PanicStatus.toResponse(): PanicStatusResponse =
         metadata = metadata,
         since = timestamp,
         declaredBy = declaredBy,
+        declaredById = declaredById,
     )

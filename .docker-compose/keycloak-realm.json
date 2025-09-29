@@ -1,6 +1,8 @@
 {
     "id": "dbbd330a-6caa-496a-b253-67d6209111d5",
-    "realm": "sping-panic-button",
+    "realm": "spring-panic-button",
+    "displayName": "Panic Button",
+    "displayNameHtml": "",
     "notBefore": 0,
     "defaultSignatureAlgorithm": "RS256",
     "revokeRefreshToken": false,
@@ -26,12 +28,12 @@
     "oauth2DeviceCodeLifespan": 600,
     "oauth2DevicePollingInterval": 5,
     "enabled": true,
-    "sslRequired": "external",
+    "sslRequired": "none",
     "registrationAllowed": false,
     "registrationEmailAsUsername": false,
     "rememberMe": false,
     "verifyEmail": false,
-    "loginWithEmailAllowed": true,
+    "loginWithEmailAllowed": false,
     "duplicateEmailsAllowed": false,
     "resetPasswordAllowed": false,
     "editUsernameAllowed": false,
@@ -47,6 +49,23 @@
     "failureFactor": 30,
     "roles": {
         "realm": [
+            {
+                "id": "2686f1d0-f074-49a6-8a31-d2b02f48195a",
+                "name": "panic-admin",
+                "description": "Panic Button Read and Write access",
+                "composite": true,
+                "composites": {
+                    "client": {
+                        "spring-panic-button-backend": [
+                            "panic-write",
+                            "panic-read"
+                        ]
+                    }
+                },
+                "clientRole": false,
+                "containerId": "dbbd330a-6caa-496a-b253-67d6209111d5",
+                "attributes": {}
+            },
             {
                 "id": "2eca9410-4670-4db9-9ab3-e5a266b052ba",
                 "name": "uma_authorization",
@@ -66,12 +85,30 @@
                 "attributes": {}
             },
             {
+                "id": "751aca8b-7c14-4f1b-87ea-3e3b30fad10e",
+                "name": "panic-read",
+                "description": "Panic Button Read access",
+                "composite": true,
+                "composites": {
+                    "client": {
+                        "spring-panic-button-backend": [
+                            "panic-read"
+                        ]
+                    }
+                },
+                "clientRole": false,
+                "containerId": "dbbd330a-6caa-496a-b253-67d6209111d5",
+                "attributes": {}
+            },
+            {
                 "id": "138609ef-d843-4c2c-811a-66c7ca386332",
                 "name": "default-roles-sping-panic-button",
                 "description": "${role_default-roles}",
                 "composite": true,
                 "composites": {
                     "realm": [
+                        "panic-read",
+                        "panic-admin",
                         "offline_access",
                         "uma_authorization"
                     ],
@@ -127,14 +164,14 @@
                                 "create-client",
                                 "manage-authorization",
                                 "query-clients",
-                                "view-realm",
-                                "view-events",
                                 "query-users",
+                                "view-events",
+                                "view-realm",
                                 "manage-users",
-                                "view-identity-providers",
                                 "impersonation",
-                                "view-clients",
+                                "view-identity-providers",
                                 "view-authorization",
+                                "view-clients",
                                 "manage-realm",
                                 "manage-events",
                                 "manage-identity-providers",
@@ -477,6 +514,24 @@
     "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": false,
     "webAuthnPolicyPasswordlessAcceptableAaguids": [],
     "webAuthnPolicyPasswordlessExtraOrigins": [],
+    "users": [
+        {
+            "id": "441a3265-36eb-4bea-91e6-2c0a78c23b9a",
+            "username": "service-account-spring-panic-button-backend",
+            "emailVerified": false,
+            "enabled": true,
+            "createdTimestamp": 1759091189190,
+            "totp": false,
+            "serviceAccountClientId": "spring-panic-button-backend",
+            "disableableCredentialTypes": [],
+            "requiredActions": [],
+            "realmRoles": [
+                "default-roles-sping-panic-button"
+            ],
+            "notBefore": 0,
+            "groups": []
+        }
+    ],
     "scopeMappings": [
         {
             "clientScope": "offline_access",
@@ -502,13 +557,13 @@
             "clientId": "account",
             "name": "${client_account}",
             "rootUrl": "${authBaseUrl}",
-            "baseUrl": "/realms/sping-panic-button/account/",
+            "baseUrl": "/realms/spring-panic-button/account/",
             "surrogateAuthRequired": false,
             "enabled": true,
             "alwaysDisplayInConsole": false,
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
-                "/realms/sping-panic-button/account/*"
+                "/realms/spring-panic-button/account/*"
             ],
             "webOrigins": [],
             "notBefore": 0,
@@ -549,13 +604,13 @@
             "clientId": "account-console",
             "name": "${client_account-console}",
             "rootUrl": "${authBaseUrl}",
-            "baseUrl": "/realms/sping-panic-button/account/",
+            "baseUrl": "/realms/spring-panic-button/account/",
             "surrogateAuthRequired": false,
             "enabled": true,
             "alwaysDisplayInConsole": false,
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
-                "/realms/sping-panic-button/account/*"
+                "/realms/spring-panic-button/account/*"
             ],
             "webOrigins": [],
             "notBefore": 0,
@@ -624,7 +679,8 @@
             "protocol": "openid-connect",
             "attributes": {
                 "realm_client": "false",
-                "client.use.lightweight.access.token.enabled": "true"
+                "client.use.lightweight.access.token.enabled": "true",
+                "post.logout.redirect.uris": "+"
             },
             "authenticationFlowBindingOverrides": {},
             "fullScopeAllowed": true,
@@ -666,7 +722,8 @@
             "frontchannelLogout": false,
             "protocol": "openid-connect",
             "attributes": {
-                "realm_client": "true"
+                "realm_client": "true",
+                "post.logout.redirect.uris": "+"
             },
             "authenticationFlowBindingOverrides": {},
             "fullScopeAllowed": false,
@@ -708,7 +765,8 @@
             "frontchannelLogout": false,
             "protocol": "openid-connect",
             "attributes": {
-                "realm_client": "true"
+                "realm_client": "true",
+                "post.logout.redirect.uris": "+"
             },
             "authenticationFlowBindingOverrides": {},
             "fullScopeAllowed": false,
@@ -734,13 +792,13 @@
             "clientId": "security-admin-console",
             "name": "${client_security-admin-console}",
             "rootUrl": "${authAdminUrl}",
-            "baseUrl": "/admin/sping-panic-button/console/",
+            "baseUrl": "/admin/spring-panic-button/console/",
             "surrogateAuthRequired": false,
             "enabled": true,
             "alwaysDisplayInConsole": false,
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
-                "/admin/sping-panic-button/console/*"
+                "/admin/spring-panic-button/console/*"
             ],
             "webOrigins": [
                 "+"
@@ -803,19 +861,21 @@
             "clientId": "spring-panic-button-backend",
             "name": "Spring Panic Button Backend",
             "description": "Spring Panic Button Backend Client",
-            "rootUrl": "http://localhost:8080",
-            "adminUrl": "http://localhost:8080",
-            "baseUrl": "http://localhost:8080",
+            "rootUrl": "http://localhost:3000",
+            "adminUrl": "",
+            "baseUrl": "http://localhost:3000",
             "surrogateAuthRequired": false,
             "enabled": true,
             "alwaysDisplayInConsole": false,
             "clientAuthenticatorType": "client-secret",
+            "secret": "**********",
             "redirectUris": [
                 "http://*",
                 "https://*"
             ],
             "webOrigins": [
-                "http://localhost:8080"
+                "http://*",
+                "https://*"
             ],
             "notBefore": 0,
             "bearerOnly": false,
@@ -823,25 +883,29 @@
             "standardFlowEnabled": true,
             "implicitFlowEnabled": false,
             "directAccessGrantsEnabled": false,
-            "serviceAccountsEnabled": false,
-            "publicClient": true,
+            "serviceAccountsEnabled": true,
+            "publicClient": false,
             "frontchannelLogout": true,
             "protocol": "openid-connect",
             "attributes": {
                 "realm_client": "false",
                 "oidc.ciba.grant.enabled": "false",
+                "client.secret.creation.time": "1759091189",
                 "backchannel.logout.session.required": "true",
                 "standard.token.exchange.enabled": "false",
+                "login_theme": "keycloak.v2",
                 "frontchannel.logout.session.required": "true",
-                "post.logout.redirect.uris": "http://localhost:8080/",
+                "post.logout.redirect.uris": "http://*##https://*",
                 "display.on.consent.screen": "false",
                 "oauth2.device.authorization.grant.enabled": "false",
+                "use.jwks.url": "false",
                 "backchannel.logout.revoke.offline.tokens": "false"
             },
             "authenticationFlowBindingOverrides": {},
             "fullScopeAllowed": true,
             "nodeReRegistrationTimeout": -1,
             "defaultClientScopes": [
+                "service_account",
                 "web-origins",
                 "acr",
                 "profile",
@@ -877,8 +941,9 @@
                     "consentRequired": false,
                     "config": {
                         "user.session.note": "clientAddress",
-                        "id.token.claim": "true",
                         "introspection.token.claim": "true",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
                         "access.token.claim": "true",
                         "claim.name": "clientAddress",
                         "jsonType.label": "String"
@@ -892,8 +957,9 @@
                     "consentRequired": false,
                     "config": {
                         "user.session.note": "clientHost",
-                        "id.token.claim": "true",
                         "introspection.token.claim": "true",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
                         "access.token.claim": "true",
                         "claim.name": "clientHost",
                         "jsonType.label": "String"
@@ -907,8 +973,9 @@
                     "consentRequired": false,
                     "config": {
                         "user.session.note": "client_id",
-                        "id.token.claim": "true",
                         "introspection.token.claim": "true",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
                         "access.token.claim": "true",
                         "claim.name": "client_id",
                         "jsonType.label": "String"
@@ -935,7 +1002,8 @@
                     "config": {
                         "id.token.claim": "true",
                         "access.token.claim": "true",
-                        "introspection.token.claim": "true"
+                        "introspection.token.claim": "true",
+                        "userinfo.token.claim": "true"
                     }
                 }
             ]
@@ -1313,6 +1381,7 @@
                     "config": {
                         "introspection.token.claim": "true",
                         "multivalued": "true",
+                        "userinfo.token.claim": "true",
                         "user.attribute": "foo",
                         "id.token.claim": "true",
                         "access.token.claim": "true",
@@ -1356,8 +1425,9 @@
                     "consentRequired": false,
                     "config": {
                         "user.session.note": "AUTH_TIME",
-                        "id.token.claim": "true",
                         "introspection.token.claim": "true",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
                         "access.token.claim": "true",
                         "claim.name": "auth_time",
                         "jsonType.label": "long"
@@ -1439,12 +1509,13 @@
                     "protocolMapper": "oidc-organization-membership-mapper",
                     "consentRequired": false,
                     "config": {
-                        "id.token.claim": "true",
                         "introspection.token.claim": "true",
+                        "multivalued": "true",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
                         "access.token.claim": "true",
                         "claim.name": "organization",
-                        "jsonType.label": "String",
-                        "multivalued": "true"
+                        "jsonType.label": "String"
                     }
                 }
             ]
@@ -1565,6 +1636,10 @@
         "strictTransportSecurity": "max-age=31536000; includeSubDomains"
     },
     "smtpServer": {},
+    "loginTheme": "keycloak.v2",
+    "accountTheme": "keycloak.v3",
+    "adminTheme": "keycloak.v2",
+    "emailTheme": "keycloak",
     "eventsEnabled": false,
     "eventsListeners": [
         "jboss-logging"
@@ -1620,13 +1695,13 @@
                 "config": {
                     "allowed-protocol-mapper-types": [
                         "saml-user-attribute-mapper",
+                        "saml-role-list-mapper",
+                        "oidc-usermodel-property-mapper",
                         "saml-user-property-mapper",
                         "oidc-full-name-mapper",
+                        "oidc-sha256-pairwise-sub-mapper",
                         "oidc-address-mapper",
-                        "saml-role-list-mapper",
-                        "oidc-usermodel-attribute-mapper",
-                        "oidc-usermodel-property-mapper",
-                        "oidc-sha256-pairwise-sub-mapper"
+                        "oidc-usermodel-attribute-mapper"
                     ]
                 }
             },
@@ -1670,12 +1745,12 @@
                 "subComponents": {},
                 "config": {
                     "allowed-protocol-mapper-types": [
+                        "oidc-sha256-pairwise-sub-mapper",
                         "saml-user-property-mapper",
+                        "oidc-usermodel-attribute-mapper",
                         "saml-role-list-mapper",
                         "oidc-full-name-mapper",
                         "oidc-address-mapper",
-                        "oidc-usermodel-attribute-mapper",
-                        "oidc-sha256-pairwise-sub-mapper",
                         "oidc-usermodel-property-mapper",
                         "saml-user-attribute-mapper"
                     ]
@@ -1735,7 +1810,13 @@
             }
         ]
     },
-    "internationalizationEnabled": false,
+    "internationalizationEnabled": true,
+    "supportedLocales": [
+        "pt",
+        "en",
+        "es"
+    ],
+    "defaultLocale": "en",
     "authenticationFlows": [
         {
             "id": "7ff7dfa4-1878-4e5b-ab61-0e6390739f86",
@@ -2518,13 +2599,21 @@
     "firstBrokerLoginFlow": "first broker login",
     "attributes": {
         "cibaBackchannelTokenDeliveryMode": "poll",
-        "cibaExpiresIn": "120",
         "cibaAuthRequestedUserHint": "login_hint",
-        "oauth2DeviceCodeLifespan": "600",
+        "clientOfflineSessionMaxLifespan": "0",
         "oauth2DevicePollingInterval": "5",
-        "parRequestUriLifespan": "60",
+        "clientSessionIdleTimeout": "0",
+        "clientOfflineSessionIdleTimeout": "0",
         "cibaInterval": "5",
-        "realmReusableOtpCode": "false"
+        "realmReusableOtpCode": "false",
+        "cibaExpiresIn": "120",
+        "oauth2DeviceCodeLifespan": "600",
+        "saml.signature.algorithm": "",
+        "parRequestUriLifespan": "60",
+        "clientSessionMaxLifespan": "0",
+        "frontendUrl": "",
+        "acr.loa.map": "{}",
+        "darkMode": "true"
     },
     "keycloakVersion": "26.3.5",
     "userManagedAccessAllowed": false,

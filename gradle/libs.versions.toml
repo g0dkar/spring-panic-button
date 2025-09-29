@@ -45,7 +45,7 @@ spring-starter-web = { module = "org.springframework.boot:spring-boot-starter-we
 spring-starter-logging = { module = "org.springframework.boot:spring-boot-starter-logging" }
 spring-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
-spring-starter-oauth2-client = { module = "org.springframework.boot:spring-boot-starter-oauth2-client" }
+spring-starter-oauth2-resourceServer = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" }
 spring-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
 spring-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 spring-confProcessor = { module = "org.springframework.boot:spring-boot-configuration-processor" }

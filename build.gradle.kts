@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.spring.starter.jpa)
 
     /* Security */
-    implementation(libs.spring.starter.oauth2.client)
+    implementation(libs.spring.starter.oauth2.resourceServer)
 
     /* Other */
     implementation(libs.spring.starter.validation)

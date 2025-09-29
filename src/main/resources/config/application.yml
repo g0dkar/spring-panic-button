@@ -13,6 +13,9 @@ server:
     jsp:
       registered: false
 
+logging:
+  level:
+    root: debug
 spring:
   application:
     name: "spring-panic-button"
@@ -39,6 +42,13 @@ spring:
       mode: never
   flyway:
     enabled: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:18080/realms/spring-panic-button"
+        opaquetoken:
+          client-id: spring-panic-button-backend
 
 panic-button:
   security:

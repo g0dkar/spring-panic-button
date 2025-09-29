@@ -8,6 +8,7 @@ import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.annotation.Secured
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/panic")
-class PanicStatusController(
+class PanicController(
     private val service: PanicStatusService,
 ) {
     @GetMapping
@@ -37,6 +38,7 @@ class PanicStatusController(
         }
 
     @PostMapping
+    @Secured("panic-write")
     fun setPanicStatus(@RequestBody @NotNull @Valid newStatus: PanicStatusRequest?): ResponseEntity<PanicStatusResponse> =
         service.setStatus(newStatus!!.status!!, newStatus.metadata)
             .let { ResponseEntity.status(HttpStatus.CREATED).body(it.toResponse()) }

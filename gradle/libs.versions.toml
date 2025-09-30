@@ -14,6 +14,7 @@ jacksonKotlin = "2.20.0"
 micrometer = "1.15.4"
 flyway = "11.7.2"
 uuidv7 = "1.0.1"
+caffeine = "3.2.2"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -31,6 +32,7 @@ micrometer-statsd = { module = "io.micrometer:micrometer-registry-statsd", versi
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 flyway-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
 uuidv7 = { module = "io.github.robsonkades:uuidv7", version.ref = "uuidv7" }
+caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
 
 ## Test
 spring-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
@@ -47,6 +49,7 @@ spring-starter-logging = { module = "org.springframework.boot:spring-boot-starte
 spring-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-starter-oauth2-resourceServer = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" }
+spring-starter-cache = { module = "org.springframework.boot:spring-boot-starter-cache" }
 spring-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
 spring-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 spring-confProcessor = { module = "org.springframework.boot:spring-boot-configuration-processor" }

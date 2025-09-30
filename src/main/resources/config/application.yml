@@ -20,6 +20,8 @@ spring:
     default-property-inclusion: non_absent
     time-zone: "UTC" # Always send and receive UTC dates by default
     property-naming-strategy: SNAKE_CASE
+    mapper:
+      accept-case-insensitive-enums: true
   mvc:
     format:
       date: iso # Always send and receive UTC dates by default (URL params)
@@ -39,6 +41,8 @@ spring:
       mode: never
   flyway:
     enabled: false
+  liquibase:
+    enabled: false
   security:
     oauth2:
       resourceserver:
@@ -47,5 +51,5 @@ spring:
 
 panic-button:
   security:
-    enabled: true
+    enabled: false
     anonymousUsername: "Panic Status Service"

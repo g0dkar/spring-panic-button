@@ -69,6 +69,10 @@ dependencies {
     /* Security */
     implementation(libs.spring.starter.oauth2.resourceServer)
 
+    /* Caching */
+    implementation(libs.caffeine)
+    implementation(libs.spring.starter.cache)
+
     /* Other */
     implementation(libs.uuidv7)
     implementation(libs.spring.starter.validation)
@@ -145,7 +149,7 @@ tasks {
 /* **************** */
 kotlin {
     compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
+        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
     }
 }
 

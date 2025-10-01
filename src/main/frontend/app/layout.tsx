@@ -1,9 +1,10 @@
 "use client"
 
 import {Inter, JetBrains_Mono} from "next/font/google"
-import "../styles/globals.css"
+import "./globals.css"
 import React from "react"
-import {cn} from "@/lib/utils"
+import {cn, useTheme} from "@/lib/utils"
+import {SidebarProvider} from "@/components/ui/sidebar"
 
 const interSans = Inter({
     variable: "--font-inter-sans",
@@ -15,11 +16,17 @@ const jetbrainsMono = JetBrains_Mono({
     subsets: ["latin"],
 })
 
-const RootLayout = ({children}: Readonly<{ children: React.ReactNode }>) =>
-    <html lang="en">
-    <body className={cn(interSans.className, interSans.variable, jetbrainsMono.variable, "antialiased")}>
-    {children}
+const RootLayout = ({children}: Readonly<{ children: React.ReactNode }>) => {
+    const [theme, setTheme] = useTheme()
+
+    return <html lang="en" className={theme}>
+    <body
+        className={cn(interSans.className, interSans.variable, jetbrainsMono.variable, "antialiased bg-gray-50 dark:bg-gray-950")}>
+    <SidebarProvider>
+        {children}
+    </SidebarProvider>
     </body>
     </html>
+}
 
 export default RootLayout

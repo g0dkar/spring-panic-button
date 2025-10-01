@@ -24,3 +24,13 @@ fun <T> List<T>.toListingResponse(
         totalItemsCount = totalItemsCount,
         orderByField = orderByField,
     )
+
+fun <T, R> List<T>.mapToListingResponse(
+    page: Int,
+    pageSize: Int,
+    totalItemsCount: Long,
+    orderByField: String? = null,
+    mapFunction: (T) -> R,
+): ListingResponse<R> =
+    map(mapFunction)
+        .toListingResponse(page, pageSize, totalItemsCount, orderByField)

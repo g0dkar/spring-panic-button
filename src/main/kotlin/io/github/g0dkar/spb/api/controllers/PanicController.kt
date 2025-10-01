@@ -3,7 +3,7 @@ package io.github.g0dkar.spb.api.controllers
 import io.github.g0dkar.spb.api.requests.PanicStatusRequest
 import io.github.g0dkar.spb.api.responses.ListingResponse
 import io.github.g0dkar.spb.api.responses.PanicStatusResponse
-import io.github.g0dkar.spb.api.responses.toListingResponse
+import io.github.g0dkar.spb.api.responses.mapToListingResponse
 import io.github.g0dkar.spb.api.responses.toResponse
 import io.github.g0dkar.spb.domain.model.PanicStatuses
 import io.github.g0dkar.spb.domain.services.PanicStatusService
@@ -14,7 +14,6 @@ import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import org.slf4j.LoggerFactory
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.ResponseEntity
@@ -37,14 +36,11 @@ class PanicController(
     }
 
     @GetMapping
-    @Cacheable("panic-status")
     fun getPanicStatus(
         @RequestParam(required = false, defaultValue = "false") quiet: Boolean = false,
     ): ResponseEntity<PanicStatusResponse> =
         service.currentStatus()
             .let {
-                log.debug("[Cache Miss] Refreshing Panic Status: [panicStatus={}]", it)
-
                 ResponseEntity
                     .status(it.httpStatus)
                     .let { response ->
@@ -81,8 +77,8 @@ class PanicController(
             orderBy ?: "timestamp",
             orderByDirection ?: Sort.Direction.DESC,
         ).let { (pageData, totalItemsCount, orderByField) ->
-            pageData.map { it.toResponse(withId = true) }
-                .toListingResponse(page, size, totalItemsCount, orderByField)
+            pageData
+                .mapToListingResponse(page, size, totalItemsCount, orderByField) { it.toResponse(withId = true) }
                 .let { ResponseEntity.ok(it) }
         }
 

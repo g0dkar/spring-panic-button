@@ -2,6 +2,7 @@ package io.github.g0dkar.spb.domain.repositories
 
 import io.github.g0dkar.spb.domain.model.PanicStatus
 import io.github.g0dkar.spb.domain.model.PanicStatuses
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -10,6 +11,7 @@ import java.util.UUID
 
 @Repository
 interface PanicStatusRepository : JpaRepository<PanicStatus, UUID> {
+    @Cacheable("panic-status")
     @Query("FROM PanicStatus ORDER BY timestamp DESC LIMIT 1")
     fun findCurrentStatus(): PanicStatus?
 

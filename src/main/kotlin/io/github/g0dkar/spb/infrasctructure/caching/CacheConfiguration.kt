@@ -14,7 +14,7 @@ class CacheConfiguration {
 
     @Bean
     fun caffeineSpec(
-        @Value($$"${spring.cache.caffeine.spec:maximumSize=50,expireAfterAccess=3s}")
+        @Value($$"${spring.cache.caffeine.spec:maximumSize=50,expireAfterWrite=3s}")
         caffeineSpecString: String,
     ): CaffeineSpec =
         CaffeineSpec.parse(caffeineSpecString)

@@ -2,8 +2,8 @@
 
 import {Inter, JetBrains_Mono} from "next/font/google"
 import "./globals.css"
-import React from "react"
-import {cn, useTheme} from "@/lib/utils"
+import React, {useState} from "react"
+import {cn} from "@/lib/utils"
 import {SidebarProvider} from "@/components/ui/sidebar"
 
 const interSans = Inter({
@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 const RootLayout = ({children}: Readonly<{ children: React.ReactNode }>) => {
-    const [theme, setTheme] = useTheme()
+    const [theme, setTheme] = useState(localStorage.getItem("theme") ?? "light")
 
     return <html lang="en" className={theme}>
     <body

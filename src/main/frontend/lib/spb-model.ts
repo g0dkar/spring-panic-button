@@ -2,6 +2,13 @@ import {z} from "zod"
 
 export const PanicStatuses = z.enum(["OK", "WARNING", "OUTAGE", "MAJOR_OUTAGE"])
 
+export const PanicStatusesVisual = {
+    "OK": "bg-emerald-100 dark:bg-emerald-950",
+    "WARNING": "bg-amber-100 dark:bg-amber-950",
+    "OUTAGE": "bg-rose-100 dark:bg-rose-950",
+    "MAJOR_OUTAGE": "bg-red-200 dark:bg-red-800",
+}
+
 export const KeycloakUserSchema = z.object({
     id: z.uuid(),
     username: z.string(),

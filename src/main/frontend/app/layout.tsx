@@ -20,7 +20,7 @@ const RootLayout = ({children}: Readonly<{ children: React.ReactNode }>) => {
     return <html lang="en">
     <body
         className={cn(interSans.className, interSans.variable, jetbrainsMono.variable, "min-h-screen bg-background font-sans antialiased h-full p-4")}>
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark">
         {children}
     </ThemeProvider>
     </body>

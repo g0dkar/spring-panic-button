@@ -2,9 +2,9 @@
 
 import {Inter, JetBrains_Mono} from "next/font/google"
 import "./globals.css"
-import React, {useState} from "react"
+import React from "react"
+import {ThemeProvider} from "@/components/theme-provider"
 import {cn} from "@/lib/utils"
-import {SidebarProvider} from "@/components/ui/sidebar"
 
 const interSans = Inter({
     variable: "--font-inter-sans",
@@ -17,14 +17,12 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 const RootLayout = ({children}: Readonly<{ children: React.ReactNode }>) => {
-    const [theme, setTheme] = useState(localStorage.getItem("theme") ?? "light")
-
-    return <html lang="en" className={theme}>
+    return <html lang="en">
     <body
-        className={cn(interSans.className, interSans.variable, jetbrainsMono.variable, "antialiased bg-gray-50 dark:bg-gray-950")}>
-    <SidebarProvider>
+        className={cn(interSans.className, interSans.variable, jetbrainsMono.variable, "min-h-screen bg-background font-sans antialiased h-full p-4")}>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         {children}
-    </SidebarProvider>
+    </ThemeProvider>
     </body>
     </html>
 }

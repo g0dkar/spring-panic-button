@@ -1,90 +1,75 @@
 "use client"
 
 import React from "react"
+import {Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu"
-import {ChevronDown} from "lucide-react"
-import {useTheme} from "@/lib/utils"
+    BundledLanguage,
+    CodeBlock,
+    CodeBlockBody,
+    CodeBlockContent,
+    CodeBlockCopyButton,
+    CodeBlockFilename,
+    CodeBlockFiles,
+    CodeBlockHeader,
+    CodeBlockItem,
+} from "@/components/ui/shadcn-io/code-block"
+import {Button} from "@/components/ui/button"
 
 const HomePage = () => {
-    const [theme, setTheme] = useTheme()
+    const code = [
+        {
+            language: "json",
+            filename: "Metadata",
+            code: `{"test": 123}`,
+        },
+    ]
 
-    return <section className="relative z-10 flex min-h-svh flex-row w-4xl m-auto">
-        <div className="flex flex-col">
-            <Sidebar>
-                <SidebarContent>
-                    <SidebarGroup>
-                        <SidebarGroupLabel>Panic Button</SidebarGroupLabel>
-                        <SidebarGroupContent>
-                            <SidebarMenu>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton asChild>
-                                        <a href="#">Current Status</a>
-                                    </SidebarMenuButton>
-                                    <SidebarMenuButton asChild>
-                                        <a href="#all-statuses">All Statuses</a>
-                                    </SidebarMenuButton>
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <SidebarMenuButton className="text-xs">
-                                                Theme
-                                                <ChevronDown className="ml-auto"/>
-                                            </SidebarMenuButton>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent>
-                                            <DropdownMenuItem className={theme == "light" ? "font-bold" : "font-normal"}
-                                                              onClick={() => setTheme("light")}>
-                                                <span>Light</span>
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem className={theme == "dark" ? "font-bold" : "font-normal"}
-                                                              onClick={() => setTheme("dark")}>
-                                                <span>Dark</span>
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </SidebarMenuItem>
-                            </SidebarMenu>
-                        </SidebarGroupContent>
-                    </SidebarGroup>
-                </SidebarContent>
-            </Sidebar>
-        </div>
+    return <section className="relative z-10 flex min-h-svh flex-row w-2xl m-auto">
         <div className="flex flex-1 flex-col p-2">
             <div
-                className="w-full bg-background rounded-lg shadow dark:border p-4 dark:bg-gray-800 dark:border-gray-700">
-                asd
+                className="w-full bg-neutral-50 border-neutral-100 rounded-lg shadow dark:border p-4 dark:bg-neutral-900 dark:border-neutral-800">
+                <h1 className="text-3xl pb-4">Current Panic Status</h1>
+                <Card className="bg-emerald-50 dark:bg-emerald-950">
+                    <CardHeader>
+                        <CardTitle>Status: MAJOR_INCIDENT</CardTitle>
+                        <CardDescription className="text-sm">Declared By: Panic Status Service</CardDescription>
+                        <CardAction className="text-xs">Since: 2025-01-02 03:04:05 GMT</CardAction>
+                    </CardHeader>
+                    <CardContent>
+                        <CodeBlock data={code} defaultValue={code[0].language}>
+                            <CodeBlockHeader>
+                                <CodeBlockFiles>
+                                    {(item) => (
+                                        <CodeBlockFilename key={item.language} value={item.language}>
+                                            {item.filename}
+                                        </CodeBlockFilename>
+                                    )}
+                                </CodeBlockFiles>
+                                <CodeBlockCopyButton
+                                    onCopy={() => console.log("Copied code to clipboard")}
+                                    onError={() => console.error("Failed to copy code to clipboard")}
+                                />
+                            </CodeBlockHeader>
+                            <CodeBlockBody>
+                                {(item) => (
+                                    <CodeBlockItem key={item.language} value={item.language}>
+                                        <CodeBlockContent language={item.language as BundledLanguage}>
+                                            {item.code}
+                                        </CodeBlockContent>
+                                    </CodeBlockItem>
+                                )}
+                            </CodeBlockBody>
+                        </CodeBlock>
+                    </CardContent>
+                    <CardFooter>
+                        <Button className="w-full cursor-pointer">Declare New Status</Button>
+                    </CardFooter>
+                </Card>
+
+                <h2 className="text-xl pt-8 pb-4">All Panic Statuses</h2>
+                <div>[list]</div>
             </div>
         </div>
-        {/*<div className="flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-red-300">*/}
-        {/*    <div className="grid grid-cols-3 gap-1">*/}
-        {/*        <div className="columns-1">Nav</div>*/}
-        {/*        <div className="columns-1">*/}
-        {/*            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">*/}
-        {/*                Page*/}
-        {/*            </div>*/}
-        {/*        </div>*/}
-        {/*    </div>*/}
-        {/*    <h1 className="text-center mb-6 text-2xl font-bold text-gray-900 dark:text-white bg-blue-300">*/}
-        {/*        Panic Button*/}
-        {/*    </h1>*/}
-        {/*    <div*/}
-        {/*        className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">*/}
-        {/*        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">*/}
-        {/*            <h2 className="text-xl font-semibold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">*/}
-        {/*                Sign in to your account*/}
-        {/*            </h2>*/}
-        {/*        </div>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
     </section>
 }
 

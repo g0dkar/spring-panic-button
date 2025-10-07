@@ -14,7 +14,6 @@ import React, {useState} from "react"
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form"
 import {useForm} from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod"
-import {metadataAsString} from "@/lib/utils"
 import {
     Select,
     SelectContent,
@@ -26,8 +25,10 @@ import {
 } from "@/components/ui/select"
 import {Textarea} from "@/components/ui/textarea"
 import {Spinner} from "@/components/ui/shadcn-io/spinner"
+import {apiBaseUrl, apiPost, metadataAsString} from "@/lib/utils"
 
 const NewPanicStatusDialog = ({panicStatus, n}: { panicStatus: PanicStatus, n?: number }) => {
+    const [open, setOpen] = React.useState(false)
     const [working, setWorking] = useState(false)
 
     const form = useForm<PanicStatusRequest>({
@@ -40,11 +41,28 @@ const NewPanicStatusDialog = ({panicStatus, n}: { panicStatus: PanicStatus, n?: 
 
     const onSubmit = (data: PanicStatusRequest) => {
         return new Promise<void>((resolve, reject) => {
+            setWorking(true)
 
+            const requestData = {
+                status: panicStatus.status,
+                metadata: data.metadata != null ? JSON.parse(data.metadata) : null,
+            }
+
+            apiPost(`${apiBaseUrl()}/api/v1/panic`, requestData)
+                .then((res) => {
+                    if (res.ok) {
+                        setOpen(false)
+                        resolve()
+                    } else {
+                        reject(res)
+                    }
+                })
+                .catch(reject)
+                .finally(() => setWorking(false))
         })
     }
 
-    return <Dialog>
+    return <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
             <Button variant="outline" className="m-auto cursor-pointer shadow">Declare New Status</Button>
         </DialogTrigger>
@@ -119,8 +137,7 @@ const NewPanicStatusDialog = ({panicStatus, n}: { panicStatus: PanicStatus, n?: 
                             <Button variant="outline" className="cursor-pointer" disabled={working}>Cancel</Button>
                         </DialogClose>
                         <Button type="submit" className="cursor-pointer" disabled={working}>
-                            Declare Status
-                            <Spinner variant="ring"/>
+                            {working ? <>Declare Status... <Spinner variant="ring"/></> : <>Declare Status</>}
                         </Button>
                     </DialogFooter>
                 </form>

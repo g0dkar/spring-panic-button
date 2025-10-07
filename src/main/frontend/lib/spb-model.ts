@@ -1,5 +1,16 @@
 import {z} from "zod"
 
+const metadataField = (fieldName: string) => z.stringFormat(fieldName, (value) => {
+    try {
+        if (value != null && value.length > 0) {
+            JSON.parse(value)
+        }
+        return true
+    } catch (err: any) {
+        return false
+    }
+})
+
 export const PanicStatuses = z.enum(["OK", "WARNING", "OUTAGE", "MAJOR_OUTAGE"])
 
 export const PanicStatusSchema = z.object({
@@ -15,7 +26,7 @@ export type PanicStatus = z.infer<typeof PanicStatusSchema>
 
 export const PanicStatusRequestSchema = z.object({
     status: PanicStatuses,
-    metadata: z.string().optional(),
+    metadata: metadataField("metadata").optional(),
 })
 
 export type PanicStatusRequest = z.infer<typeof PanicStatusRequestSchema>
@@ -34,13 +45,6 @@ export const PanicStatusListSchema = ListingResultSchema.extend({
 })
 
 export type PanicStatusList = z.infer<typeof PanicStatusListSchema>
-
-export const EMPTY_PANIC_STATUS = PanicStatusSchema.parse({
-    "status": "OK",
-    "metadata": {},
-    "timestamp": "2025-09-29T22:24:20.323832Z",
-    "declared_by": "Init",
-})
 
 export const PanicStatusesVisual = {
     "LOADING": "bg-accent animate-pulse",

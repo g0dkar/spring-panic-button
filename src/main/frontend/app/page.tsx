@@ -95,8 +95,8 @@ const PanicStatusCardContent = ({panicStatus, className}: { panicStatus: PanicSt
 }
 
 const HomePage = () => {
-    const {panicStatus, loading, error} = usePanicStatus("http://localhost:8080")
-    const {panicStatusList, loadingList, errorList} = usePanicStatusList("http://localhost:8080")
+    const {panicStatus, loading} = usePanicStatus()
+    const {panicStatusList, loadingList} = usePanicStatusList()
 
     return <section className="relative z-10 flex min-h-svh flex-row w-2xl m-auto">
         <div className="flex flex-1 flex-col p-2">

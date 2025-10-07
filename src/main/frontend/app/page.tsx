@@ -13,10 +13,11 @@ import {
     CodeBlockHeader,
     CodeBlockItem,
 } from "@/components/ui/shadcn-io/code-block"
-import {Button} from "@/components/ui/button"
 import {PanicStatus, PanicStatusesVisual} from "@/lib/spb-model"
 import {Spinner} from "@/components/ui/shadcn-io/spinner"
-import {usePanicStatus} from "@/lib/utils"
+import {cn, metadataAsString, usePanicStatus, usePanicStatusList} from "@/lib/utils"
+import {ClassNameValue} from "tailwind-merge"
+import NewPanicStatusDialog from "@/components/new-panic-status"
 
 const Timestamp = ({timestamp}: { timestamp: string | undefined }) => {
     if (timestamp !== undefined) {
@@ -32,11 +33,13 @@ const Timestamp = ({timestamp}: { timestamp: string | undefined }) => {
 }
 
 const LoadingCardContent = () =>
-    <CardContent>
-        <Spinner className="m-auto" size={64} variant="ring"/>
-    </CardContent>
+    <Card className={PanicStatusesVisual["LOADING"]}>
+        <CardContent>
+            <Spinner className="m-auto" size={64} variant="ring"/>
+        </CardContent>
+    </Card>
 
-const PanicStatusCardContent = ({panicStatus}: { panicStatus: PanicStatus }) => {
+const PanicStatusCardContent = ({panicStatus, className}: { panicStatus: PanicStatus, className?: ClassNameValue }) => {
     const [code, setCode] = useState([
         {
             language: "json",
@@ -50,12 +53,12 @@ const PanicStatusCardContent = ({panicStatus}: { panicStatus: PanicStatus }) => 
             {
                 language: "json",
                 filename: "Metadata",
-                code: JSON.stringify(panicStatus.metadata, null, 2),
+                code: metadataAsString(panicStatus.metadata),
             },
         ])
     }, [panicStatus])
 
-    return <>
+    return <Card className={cn(PanicStatusesVisual[panicStatus?.status ?? "LOADING"], className)}>
         <CardHeader>
             <CardTitle>Status: {panicStatus.status}</CardTitle>
             <CardDescription className="text-sm">Declared By: {panicStatus.declared_by}</CardDescription>
@@ -86,26 +89,33 @@ const PanicStatusCardContent = ({panicStatus}: { panicStatus: PanicStatus }) => 
             </CodeBlock>
         </CardContent>
         <CardFooter>
-            <Button className="w-full cursor-pointer">Declare New Status</Button>
+            <NewPanicStatusDialog panicStatus={panicStatus}/>
         </CardFooter>
-    </>
+    </Card>
 }
 
 const HomePage = () => {
     const {panicStatus, loading, error} = usePanicStatus("http://localhost:8080")
+    const {panicStatusList, loadingList, errorList} = usePanicStatusList("http://localhost:8080")
 
     return <section className="relative z-10 flex min-h-svh flex-row w-2xl m-auto">
         <div className="flex flex-1 flex-col p-2">
             <div
                 className="w-full bg-neutral-50 border-neutral-100 rounded-lg shadow dark:border p-4 dark:bg-neutral-900 dark:border-neutral-800">
                 <h1 className="text-3xl pb-4">Current Panic Status</h1>
-                <Card className={PanicStatusesVisual[panicStatus?.status ?? "LOADING"]}>
-                    {(loading || panicStatus == null) ? <LoadingCardContent/> :
-                        <PanicStatusCardContent panicStatus={panicStatus}/>}
-                </Card>
+                {(loading || panicStatus == null) ? <LoadingCardContent/> :
+                    <PanicStatusCardContent panicStatus={panicStatus}/>}
 
-                <h2 className="text-xl pt-8 pb-4">Last 50 Panic Statuses</h2>
-                <div>[loading={loading}, panicStatus={JSON.stringify(panicStatus)}]</div>
+                <h2 className="text-xl pt-12 pb-4">Last 50 Panic Statuses</h2>
+
+                <div className="max-h-dvh overflow-x-scroll max-w-2xl p-4 rounded-md border">
+                    {loadingList ? "Loading..." : panicStatusList?.items.map((item, index) =>
+                        <React.Fragment key={index}>
+                            <PanicStatusCardContent panicStatus={item}
+                                                    className="rounded-md mb-4 last:mb-0 opacity-40 hover:opacity-100"/>
+                        </React.Fragment>,
+                    )}
+                </div>
             </div>
         </div>
     </section>

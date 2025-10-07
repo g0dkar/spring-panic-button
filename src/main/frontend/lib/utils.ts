@@ -1,10 +1,14 @@
 import {type ClassValue, clsx} from "clsx"
 import {twMerge} from "tailwind-merge"
 import useSWR, {Fetcher} from "swr"
-import {PanicStatus} from "@/lib/spb-model"
+import {PanicStatus, PanicStatusList} from "@/lib/spb-model"
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
+}
+
+export function metadataAsString(object?: any) {
+    return JSON.stringify(object ?? {}, null, 2)
 }
 
 export async function apiGet(url: string): Promise<Response> {
@@ -15,7 +19,7 @@ export function urlFetcher<T>(): Fetcher<T, string> {
     return (url) => apiGet(url).then(it => it.json() as Promise<T>)
 }
 
-export function usePanicStatus(baseUrl: string): { panicStatus?: PanicStatus, loading: boolean, error: Error } {
+export function usePanicStatus(baseUrl: string): { panicStatus?: PanicStatus, loading: boolean, error?: Error } {
     const fullUrl = `${baseUrl}/api/v1/panic`
 
     const {data, error, isLoading} = useSWR(fullUrl, urlFetcher<PanicStatus>())
@@ -24,5 +28,21 @@ export function usePanicStatus(baseUrl: string): { panicStatus?: PanicStatus, lo
         panicStatus: data,
         loading: isLoading,
         error: error,
+    }
+}
+
+export function usePanicStatusList(baseUrl: string): {
+    panicStatusList?: PanicStatusList,
+    loadingList: boolean,
+    errorList?: Error
+} {
+    const fullUrl = `${baseUrl}/api/v1/panic/all`
+
+    const {data, error, isLoading} = useSWR(fullUrl, urlFetcher<PanicStatusList>())
+
+    return {
+        panicStatusList: data,
+        loadingList: isLoading,
+        errorList: error,
     }
 }

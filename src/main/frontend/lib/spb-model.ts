@@ -13,6 +13,28 @@ export const PanicStatusSchema = z.object({
 
 export type PanicStatus = z.infer<typeof PanicStatusSchema>
 
+export const PanicStatusRequestSchema = z.object({
+    status: PanicStatuses,
+    metadata: z.string().optional(),
+})
+
+export type PanicStatusRequest = z.infer<typeof PanicStatusRequestSchema>
+
+export const ListingResultSchema = z.object({
+    page: z.number(),
+    page_size: z.number(),
+    total_item_count: z.number(),
+    offset: z.number(),
+    total_pages: z.number(),
+    page_item_count: z.number(),
+})
+
+export const PanicStatusListSchema = ListingResultSchema.extend({
+    items: PanicStatusSchema.array(),
+})
+
+export type PanicStatusList = z.infer<typeof PanicStatusListSchema>
+
 export const EMPTY_PANIC_STATUS = PanicStatusSchema.parse({
     "status": "OK",
     "metadata": {},

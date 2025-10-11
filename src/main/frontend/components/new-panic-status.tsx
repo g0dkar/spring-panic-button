@@ -27,7 +27,7 @@ import {Textarea} from "@/components/ui/textarea"
 import {Spinner} from "@/components/ui/shadcn-io/spinner"
 import {apiBaseUrl, apiPost, metadataAsString} from "@/lib/utils"
 
-const NewPanicStatusDialog = ({panicStatus, n}: { panicStatus: PanicStatus, n?: number }) => {
+const NewPanicStatusDialog = ({panicStatus}: { panicStatus: PanicStatus }) => {
     const [open, setOpen] = React.useState(false)
     const [working, setWorking] = useState(false)
 
